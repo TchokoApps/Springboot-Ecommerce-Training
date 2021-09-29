@@ -14,22 +14,34 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(length = 45, nullable = false)
     private String firstName;
+
     @Column(length = 45, nullable = false)
     private String lastName;
+
     @Column(length = 128)
     private String email;
+
     @Column(length = 64)
     private String password;
+
     @Column(length = 64)
     private String photos;
+
     private boolean enabled;
-    @ManyToMany
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles = new HashSet<>();
 
     @Override

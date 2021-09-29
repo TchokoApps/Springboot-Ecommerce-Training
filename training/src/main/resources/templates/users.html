@@ -63,7 +63,33 @@
         </nav>
     </div>
     <div>
-        <h1>Shopme Control Panel</h1>
+        <h1>Manage Users</h1>
+    </div>
+    <div>
+        <table class="table table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>Photos</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Roles</th>
+                <th>Enabled</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}">
+                <td>[[${user.id}]]</td>
+                <td></td>
+                <td>[[${user.email}]]</td>
+                <td>[[${user.firstName}]]</td>
+                <td>[[${user.lastName}]]</td>
+                <td>[[${user.roles}]]</td>
+                <td>[[${user.enabled}]]</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div>
         <p>Shopme Control Panel</p>
