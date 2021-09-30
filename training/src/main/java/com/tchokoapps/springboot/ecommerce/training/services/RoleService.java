@@ -16,12 +16,17 @@ public class RoleService {
 
     private RoleRepository roleRepository;
 
-    public void createRole(@NonNull Role role) {
+    public void save(@NonNull Role role) {
         Role savedRole = roleRepository.save(role);
         log.info("Role: {} created successfully", savedRole);
     }
 
-    public void createRoles(@NonNull List<Role> roles) {
-        roles.forEach(this::createRole);
+    public void save(@NonNull List<Role> roles) {
+        roles.forEach(this::save);
     }
+
+    public List<Role> retrieveAllRoles() {
+        return (List<Role>) roleRepository.findAll();
+    }
+
 }

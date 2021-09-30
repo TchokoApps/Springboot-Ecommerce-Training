@@ -31,11 +31,17 @@ public class TrainingApplication implements CommandLineRunner {
 
         Faker faker = new Faker();
 
-        Role adminRole = Role.builder().name("Admin").description("For Admin").build();
-        Role publisherRole = Role.builder().name("Pubblisher").description("For Publisher").build();
-        Role customerRole = Role.builder().name("Customer").description("For Customer").build();
-        List<Role> roles = Arrays.asList(adminRole, publisherRole, customerRole);
-        roleService.createRoles(roles);
+        Role adminRole = Role.builder().name("Admin").build();
+        Role publisherRole = Role.builder().name("Pubblisher").build();
+        Role customerRole = Role.builder().name("Customer").build();
+        Role roleSalesperson = Role.builder().name("Salesperson").build();
+        Role roleEditor = Role.builder().name("Editor").build();
+        Role roleShipper = Role.builder().name("Shipper").build();
+        Role roleAssistant = Role.builder().name("Assistant").build();
+
+        List<Role> roles = Arrays.asList(adminRole, publisherRole, customerRole, roleSalesperson, roleEditor, roleShipper, roleAssistant);
+
+        roleService.save(roles);
 
         for (int i = 0; i < 10; i++) {
 
@@ -47,9 +53,9 @@ public class TrainingApplication implements CommandLineRunner {
             user.setEnabled(false);
             user.setPhotos(faker.artist().name());
             user.setPassword(faker.beer().name());
-            user.setRoles(Collections.singleton(roles.get(faker.random().nextInt(3))));
+            user.setRoles(Collections.singleton(roles.get(faker.random().nextInt(7))));
 
-            userService.createUser(user);
+            userService.save(user);
         }
     }
 }

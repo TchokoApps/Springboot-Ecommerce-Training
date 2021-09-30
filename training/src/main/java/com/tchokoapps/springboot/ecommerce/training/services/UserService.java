@@ -22,12 +22,12 @@ public class UserService {
         return users;
     }
 
-    public void createUser(@NonNull User user) {
+    public void save(@NonNull User user) {
         User savedUser = userRepository.save(user);
-        log.info("User: {} created successfully", savedUser);
+        log.info("User: {} saved successfully", savedUser);
     }
 
-    public void createUsers(@NonNull List<User> users) {
-        users.forEach(this::createUser);
+    public void save(@NonNull List<User> users) {
+        users.forEach(this::save);
     }
 }
