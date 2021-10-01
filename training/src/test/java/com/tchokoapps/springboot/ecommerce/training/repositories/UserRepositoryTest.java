@@ -3,12 +3,13 @@ package com.tchokoapps.springboot.ecommerce.training.repositories;
 import com.tchokoapps.springboot.ecommerce.training.entities.Role;
 import com.tchokoapps.springboot.ecommerce.training.entities.User;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DataJpaTest
@@ -35,7 +36,32 @@ class UserRepositoryTest {
         User savedUser = userRepository.save(user);
         log.info("User: {}", savedUser);
 
-        Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+        assertThat(savedUser.getId()).isGreaterThan(0);
+
+    }
+
+    @Test
+    public void findUserByEmail() {
+
+        String email = "foo@bar.com";
+        String firstName = "Foo";
+        String lastName = "Bar";
+
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+
+        User savedUser = userRepository.save(user);
+
+        log.info("SavedUser: {}", savedUser);
+
+        User userByEmail = userRepository.findByEmail(email);
+        log.info("UserByEmail: {}", userByEmail);
+
+        assertThat(userByEmail.getFirstName()).isEqualTo(firstName);
+        assertThat(userByEmail.getLastName()).isEqualTo(lastName);
+        assertThat(userByEmail.getEmail()).isEqualTo(email);
 
     }
 

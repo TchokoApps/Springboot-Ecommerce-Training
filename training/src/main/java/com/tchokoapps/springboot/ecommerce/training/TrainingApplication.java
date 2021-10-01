@@ -3,8 +3,8 @@ package com.tchokoapps.springboot.ecommerce.training;
 import com.github.javafaker.Faker;
 import com.tchokoapps.springboot.ecommerce.training.entities.Role;
 import com.tchokoapps.springboot.ecommerce.training.entities.User;
-import com.tchokoapps.springboot.ecommerce.training.services.RoleService;
-import com.tchokoapps.springboot.ecommerce.training.services.UserService;
+import com.tchokoapps.springboot.ecommerce.training.repositories.RoleRepository;
+import com.tchokoapps.springboot.ecommerce.training.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,9 +18,8 @@ import java.util.List;
 @SpringBootApplication
 public class TrainingApplication implements CommandLineRunner {
 
-    private RoleService roleService;
-    private UserService userService;
-
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TrainingApplication.class, args);
@@ -41,9 +40,9 @@ public class TrainingApplication implements CommandLineRunner {
 
         List<Role> roles = Arrays.asList(adminRole, publisherRole, customerRole, roleSalesperson, roleEditor, roleShipper, roleAssistant);
 
-        roleService.save(roles);
+        roleRepository.saveAll(roles);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
 
             User user = new User();
             user.setFirstName(faker.name().firstName());
@@ -55,7 +54,7 @@ public class TrainingApplication implements CommandLineRunner {
             user.setPassword(faker.beer().name());
             user.setRoles(Collections.singleton(roles.get(faker.random().nextInt(7))));
 
-            userService.save(user);
+            userRepository.save(user);
         }
     }
 }

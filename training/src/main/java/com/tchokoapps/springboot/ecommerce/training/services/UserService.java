@@ -39,7 +39,10 @@ public class UserService {
         user.setPassword(encodedPassword);
     }
 
-    public void save(@NonNull List<User> users) {
-        users.forEach(this::save);
+    public boolean isEmailUnique(String email) {
+        User byEmail = userRepository.findByEmail(email);
+        log.info("User found: {}", byEmail);
+        return byEmail == null;
     }
+
 }
