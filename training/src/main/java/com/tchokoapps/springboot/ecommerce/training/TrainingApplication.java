@@ -10,9 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -42,7 +40,7 @@ public class TrainingApplication implements CommandLineRunner {
 
         roleRepository.saveAll(roles);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
 
             User user = new User();
             user.setFirstName(faker.name().firstName());
@@ -52,7 +50,8 @@ public class TrainingApplication implements CommandLineRunner {
             user.setEnabled(false);
             user.setPhotos(faker.artist().name());
             user.setPassword(faker.beer().name());
-            user.setRoles(Collections.singleton(roles.get(faker.random().nextInt(7))));
+            Set<Role> roleSet = new HashSet<>(Arrays.asList(roles.get(faker.random().nextInt(7)), roles.get(faker.random().nextInt(7))));
+            user.setRoles(roleSet);
 
             userRepository.save(user);
         }

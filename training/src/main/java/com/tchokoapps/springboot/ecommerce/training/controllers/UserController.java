@@ -2,6 +2,7 @@ package com.tchokoapps.springboot.ecommerce.training.controllers;
 
 import com.tchokoapps.springboot.ecommerce.training.entities.Role;
 import com.tchokoapps.springboot.ecommerce.training.entities.User;
+import com.tchokoapps.springboot.ecommerce.training.exceptions.UserNotFoundException;
 import com.tchokoapps.springboot.ecommerce.training.services.RoleService;
 import com.tchokoapps.springboot.ecommerce.training.services.UserService;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,14 +39,30 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("listRoles", listRoles);
+        model.addAttribute("pageTitle", "Create New User");
 
-        return "user_form";
+        return "user-form";
     }
 
     @PostMapping("/users/save")
     public String save(User user, RedirectAttributes redirectAttributes) {
         userService.save(user);
-        redirectAttributes.addFlashAttribute("message","The user has been saved successfully");
+        redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
         return "redirect:/users";
+    }
+
+    @GetMapping("/users/edit/{id}")
+    public String editUser(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            User user = userService.findById(id);
+            model.addAttribute("user", user);
+            model.addAttribute("pageTitle", "Edit User (ID=" + id + ")");
+            List<Role> listRoles = roleService.retrieveAllRoles();
+            model.addAttribute("listRoles", listRoles);
+            return "user-form";
+        } catch (UserNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/users";
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.tchokoapps.springboot.ecommerce.training.services;
 
 import com.tchokoapps.springboot.ecommerce.training.entities.User;
+import com.tchokoapps.springboot.ecommerce.training.exceptions.UserNotFoundException;
 import com.tchokoapps.springboot.ecommerce.training.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,11 @@ public class UserService {
         User byEmail = userRepository.findByEmail(email);
         log.info("User found: {}", byEmail);
         return byEmail == null;
+    }
+
+    public User findById(Integer id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(() ->
+                new UserNotFoundException(String.format("User with id=%s cannot be found", id)));
     }
 
 }

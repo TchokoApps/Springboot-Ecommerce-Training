@@ -19,7 +19,7 @@ class RoleRepositoryTest {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Test
+//    @Test
     public void createAdminRole() {
         Role role = Role.builder()
                 .name("Admin")
