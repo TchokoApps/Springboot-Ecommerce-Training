@@ -1,16 +1,19 @@
 package com.tchokoapps.springboot.ecommerce.training;
 
 import com.github.javafaker.Faker;
-import com.tchokoapps.springboot.ecommerce.training.entities.Role;
-import com.tchokoapps.springboot.ecommerce.training.entities.User;
-import com.tchokoapps.springboot.ecommerce.training.repositories.RoleRepository;
-import com.tchokoapps.springboot.ecommerce.training.repositories.UserRepository;
+import com.tchokoapps.springboot.ecommerce.training.entity.Role;
+import com.tchokoapps.springboot.ecommerce.training.entity.User;
+import com.tchokoapps.springboot.ecommerce.training.repository.RoleRepository;
+import com.tchokoapps.springboot.ecommerce.training.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @SpringBootApplication

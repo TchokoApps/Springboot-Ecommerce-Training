@@ -1,10 +1,10 @@
-package com.tchokoapps.springboot.ecommerce.training.controllers;
+package com.tchokoapps.springboot.ecommerce.training.controller;
 
-import com.tchokoapps.springboot.ecommerce.training.entities.Role;
-import com.tchokoapps.springboot.ecommerce.training.entities.User;
-import com.tchokoapps.springboot.ecommerce.training.exceptions.UserNotFoundException;
-import com.tchokoapps.springboot.ecommerce.training.services.RoleService;
-import com.tchokoapps.springboot.ecommerce.training.services.UserService;
+import com.tchokoapps.springboot.ecommerce.training.entity.Role;
+import com.tchokoapps.springboot.ecommerce.training.entity.User;
+import com.tchokoapps.springboot.ecommerce.training.exception.UserNotFoundException;
+import com.tchokoapps.springboot.ecommerce.training.service.RoleService;
+import com.tchokoapps.springboot.ecommerce.training.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

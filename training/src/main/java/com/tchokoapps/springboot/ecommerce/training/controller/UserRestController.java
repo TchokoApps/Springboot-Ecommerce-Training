@@ -1,6 +1,6 @@
-package com.tchokoapps.springboot.ecommerce.training.controllers;
+package com.tchokoapps.springboot.ecommerce.training.controller;
 
-import com.tchokoapps.springboot.ecommerce.training.services.UserService;
+import com.tchokoapps.springboot.ecommerce.training.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ public class UserRestController {
     private UserService userService;
 
     @PostMapping("/users/check-email")
-    public boolean checkDuplicateEmail(@Param("email") String email) {
-        return userService.isEmailUnique(email);
+    public boolean checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email) {
+        return userService.isEmailUnique(id, email);
     }
 }

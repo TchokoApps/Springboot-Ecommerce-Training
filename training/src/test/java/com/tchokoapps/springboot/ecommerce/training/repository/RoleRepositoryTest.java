@@ -1,9 +1,8 @@
-package com.tchokoapps.springboot.ecommerce.training.repositories;
+package com.tchokoapps.springboot.ecommerce.training.repository;
 
-import com.tchokoapps.springboot.ecommerce.training.entities.Role;
+import com.tchokoapps.springboot.ecommerce.training.entity.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,4 +1,4 @@
-package com.tchokoapps.springboot.ecommerce.training.exceptions;
+package com.tchokoapps.springboot.ecommerce.training.exception;
 
 public class UserNotFoundException extends Exception {
 

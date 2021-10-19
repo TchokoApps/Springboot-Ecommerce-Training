@@ -1,4 +1,4 @@
-package com.tchokoapps.springboot.ecommerce.training.repositories;
+package com.tchokoapps.springboot.ecommerce.training.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

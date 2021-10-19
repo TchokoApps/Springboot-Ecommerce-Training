@@ -1,4 +1,4 @@
-package com.tchokoapps.springboot.ecommerce.training.entities;
+package com.tchokoapps.springboot.ecommerce.training.entity;
 
 import lombok.*;
 

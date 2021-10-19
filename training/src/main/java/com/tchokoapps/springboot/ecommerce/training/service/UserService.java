@@ -1,10 +1,11 @@
-package com.tchokoapps.springboot.ecommerce.training.services;
+package com.tchokoapps.springboot.ecommerce.training.service;
 
-import com.tchokoapps.springboot.ecommerce.training.entities.User;
-import com.tchokoapps.springboot.ecommerce.training.exceptions.UserNotFoundException;
-import com.tchokoapps.springboot.ecommerce.training.repositories.UserRepository;
+import com.tchokoapps.springboot.ecommerce.training.entity.User;
+import com.tchokoapps.springboot.ecommerce.training.exception.UserNotFoundException;
+import com.tchokoapps.springboot.ecommerce.training.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,18 @@ public class UserService {
 
     public void save(@NonNull User user) {
 
-        encodeUserPassword(user);
+        boolean isUpdatingUser = user.getId() != null;
+        System.out.println(user);
 
+        if (isUpdatingUser) {
+            if (StringUtils.isEmpty(user.getPassword())) {
+                userRepository.findById(user.getId()).ifPresent(user1 -> user.setPassword(user1.getPassword()));
+            } else {
+                encodeUserPassword(user);
+            }
+        } else {
+            encodeUserPassword(user);
+        }
         User savedUser = userRepository.save(user);
         log.info("User: {} saved successfully", savedUser);
     }
@@ -40,10 +51,14 @@ public class UserService {
         user.setPassword(encodedPassword);
     }
 
-    public boolean isEmailUnique(String email) {
-        User byEmail = userRepository.findByEmail(email);
-        log.info("User found: {}", byEmail);
-        return byEmail == null;
+    public boolean isEmailUnique(Integer id, String email) {
+        User userByEmail = userRepository.findByEmail(email);
+        log.info("User found: {}", userByEmail);
+        if (id == null) {
+            return userByEmail == null;
+        } else {
+            return userByEmail.getId().equals(id);
+        }
     }
 
     public User findById(Integer id) throws UserNotFoundException {

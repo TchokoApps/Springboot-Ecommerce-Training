@@ -1,7 +1,7 @@
-package com.tchokoapps.springboot.ecommerce.training.repositories;
+package com.tchokoapps.springboot.ecommerce.training.repository;
 
-import com.tchokoapps.springboot.ecommerce.training.entities.Role;
-import com.tchokoapps.springboot.ecommerce.training.entities.User;
+import com.tchokoapps.springboot.ecommerce.training.entity.Role;
+import com.tchokoapps.springboot.ecommerce.training.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
