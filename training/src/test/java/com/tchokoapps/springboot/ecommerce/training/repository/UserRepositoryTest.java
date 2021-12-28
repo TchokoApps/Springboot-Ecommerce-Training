@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,7 +32,7 @@ class UserRepositoryTest {
         Role role2 = new Role();
         role2.setName("Manager");
 
-        user.getRoles().addAll(Arrays.asList(role,role2));
+        user.getRoles().addAll(Arrays.asList(role, role2));
 
         User savedUser = userRepository.save(user);
         log.info("User: {}", savedUser);
@@ -69,5 +70,22 @@ class UserRepositoryTest {
     void countById() {
         Long aLong = userRepository.countById(1);
         assertThat(aLong).isNotNull().isGreaterThan(0);
+    }
+
+    @Test
+    public void disableUser() {
+        Optional<User> userOpt = userRepository.findById(1);
+
+        userOpt.ifPresent(user -> assertThat(user.isEnabled()).isFalse());
+
+        userOpt.ifPresent(user -> {
+            user.setEnabled(true);
+            userRepository.save(user);
+        });
+
+        Optional<User> userOpt2 = userRepository.findById(1);
+
+        userOpt2.ifPresent(user -> assertThat(user.isEnabled()).isTrue());
+
     }
 }

@@ -95,12 +95,23 @@
             <td>[[${user.password}]]</td>
             <td>[[${user.roles}]]</td>
             <td>
-                <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"></a>
-                <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+                <a class="fas fa-check-circle fa-2x icon-green"
+                   th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+                   th:if="${user.enabled == true}"
+                   title="Disable this user"></a>
+
+                <a class="fas fa-circle fa-2x icon-dark"
+                   th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+                   th:if="${user.enabled == false}"
+                   title="Enable this user"></a>
             </td>
             <td>
-                <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user"></a>
-                <a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/users/delete/' + ${user.id}}" th:userId="${user.id}"
+                <a class="fas fa-edit fa-2x icon-green"
+                   th:href="@{'/users/edit/' + ${user.id}}"
+                   title="Edit this user"></a>
+                <a class="fas fa-trash fa-2x icon-dark link-delete"
+                   th:href="@{'/users/delete/' + ${user.id}}"
+                   th:userId="${user.id}"
                    title="Delete this user"></a>
             </td>
         </tr>

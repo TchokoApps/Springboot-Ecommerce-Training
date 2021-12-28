@@ -81,5 +81,22 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/{id}/enabled/{status}")
+    public String updateEnabledStatusUser(@PathVariable(name = "id") Integer id, @PathVariable(name = "status") boolean enabled,
+                                          RedirectAttributes redirectAttributes) {
+        try {
+            User user = userService.findById(id);
+            user.setEnabled(enabled);
+            userService.save(user);
+            String enabledString = enabled ? "ENABLED" : "DISABLED";
+            redirectAttributes.addFlashAttribute("message", String.format("The status of user %s, %s has been %s ",
+                    user.getFirstName(), user.getLastName(), enabledString));
+        } catch (UserNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/users";
+        }
+        return "redirect:/users";
+    }
+
 
 }
