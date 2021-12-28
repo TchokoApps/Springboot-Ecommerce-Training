@@ -30,7 +30,7 @@ public class UserService {
     public void save(@NonNull User user) {
 
         boolean isUpdatingUser = user.getId() != null;
-        System.out.println(user);
+        log.info(user.toString());
 
         if (isUpdatingUser) {
             if (StringUtils.isEmpty(user.getPassword())) {
@@ -62,8 +62,12 @@ public class UserService {
     }
 
     public User findById(Integer id) throws UserNotFoundException {
-        return userRepository.findById(id).orElseThrow(() ->
-                new UserNotFoundException(String.format("User with id=%s cannot be found", id)));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(String.format("User with id=%s cannot be found", id)));
+    }
+
+    public void delete(Integer id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(String.format("User with Id=%s doesn´t exist", id)));
+        userRepository.delete(user);
     }
 
 }

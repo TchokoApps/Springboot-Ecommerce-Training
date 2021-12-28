@@ -27,17 +27,51 @@ public class TrainingApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Faker faker = new Faker();
 
-        Role adminRole = Role.builder().name("Admin").build();
-        Role publisherRole = Role.builder().name("Pubblisher").build();
-        Role customerRole = Role.builder().name("Customer").build();
-        Role roleSalesperson = Role.builder().name("Salesperson").build();
-        Role roleEditor = Role.builder().name("Editor").build();
-        Role roleShipper = Role.builder().name("Shipper").build();
-        Role roleAssistant = Role.builder().name("Assistant").build();
+        Role adminRole = Role
+                .builder()
+                .name("Admin")
+                .description("Admin")
+                .build();
+
+        Role publisherRole = Role
+                .builder()
+                .name("Pubblisher")
+                .description("Pubblisher")
+                .build();
+
+        Role customerRole = Role
+                .builder()
+                .name("Customer")
+                .description("Customer")
+                .build();
+
+        Role roleSalesperson = Role
+                .builder()
+                .name("Salesperson")
+                .description("Salesperson")
+                .build();
+
+        Role roleEditor = Role
+                .builder()
+                .name("Editor")
+                .description("Editor")
+                .build();
+
+        Role roleShipper = Role
+                .builder()
+                .name("Shipper")
+                .description("Shipper")
+                .build();
+
+        Role roleAssistant = Role
+                .builder()
+                .name("Assistant")
+                .description("Assistant")
+                .build();
 
         List<Role> roles = Arrays.asList(adminRole, publisherRole, customerRole, roleSalesperson, roleEditor, roleShipper, roleAssistant);
 

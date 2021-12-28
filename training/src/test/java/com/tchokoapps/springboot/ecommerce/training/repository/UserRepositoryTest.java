@@ -65,4 +65,9 @@ class UserRepositoryTest {
 
     }
 
+    @Test
+    void countById() {
+        Long aLong = userRepository.countById(1);
+        assertThat(aLong).isNotNull().isGreaterThan(0);
+    }
 }
