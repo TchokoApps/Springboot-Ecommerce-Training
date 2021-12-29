@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -87,5 +89,15 @@ class UserRepositoryTest {
 
         userOpt2.ifPresent(user -> assertThat(user.isEnabled()).isTrue());
 
+    }
+
+    @Test
+    public void listFirstPage() {
+        int pageNum = 1;
+        int pageSize = 4;
+        PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
+        Page<User> userPage = userRepository.findAll(pageRequest);
+        userPage.getContent().forEach(System.out::println);
+        assertThat(userPage.getContent().size()).isEqualTo(4);
     }
 }

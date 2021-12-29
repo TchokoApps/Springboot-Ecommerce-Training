@@ -7,6 +7,7 @@ import com.tchokoapps.springboot.ecommerce.training.service.RoleService;
 import com.tchokoapps.springboot.ecommerce.training.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +22,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
+    public static final int FIRST_PAGE = 1;
+    public static final int PAGE_SIZE = 4;
     private UserService userService;
     private RoleService roleService;
 
     @GetMapping("/users")
-    public String retrieveAllUsers(Model model) {
-        List<User> users = userService.retrieveAllUsers();
-        model.addAttribute("users", users);
-        return "users";
+    public String showFirstPage(Model model) {
+        return showUsersByPage(FIRST_PAGE, model);
     }
 
     @GetMapping("/users/new")
@@ -96,6 +97,29 @@ public class UserController {
             return "redirect:/users";
         }
         return "redirect:/users";
+    }
+
+    @GetMapping("/users/page/{pageNum}")
+    public String showUsersByPage(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<User> page = userService.findByPage(pageNum, PAGE_SIZE);
+        List<User> users = page.getContent();
+
+        long startCount = (long) (pageNum - 1) * PAGE_SIZE + 1;
+        long endCount = startCount + PAGE_SIZE - 1;
+        if (endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("users", users);
+
+        System.out.println(model);
+
+        return "users";
     }
 
 

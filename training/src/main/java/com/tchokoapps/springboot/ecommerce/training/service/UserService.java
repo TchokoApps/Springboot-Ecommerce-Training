@@ -6,6 +6,8 @@ import com.tchokoapps.springboot.ecommerce.training.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,11 @@ public class UserService {
     public void delete(Integer id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(String.format("User with Id=%s doesn´t exist", id)));
         userRepository.delete(user);
+    }
+
+    public Page<User> findByPage(int pageNum, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum - 1, pageSize);
+        return userRepository.findAll(pageRequest);
     }
 
 }
